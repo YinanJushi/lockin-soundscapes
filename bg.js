@@ -51,7 +51,7 @@
     temple:   [["#e3e6e2", "#f0f0ea", "#ffffff", "#b6c1bb"], ["#121816", "#1c2320", "#c9d6d0", "#0d1311"]],
     aurora:   [["#dbe7ea", "#eef1ee", "#5fb39a", "#8a7fc8"], ["#071218", "#0d1a20", "#6fe0b6", "#9c86ff"]],
     clouds:   [["#e3e2ea", "#f1efef", "#ffffff", "#c9c3d6"], ["#13121c", "#1d1b26", "#d9d2ea", "#2a2638"]],
-    ripples:  [["#dfe6e8", "#eef0ee", "#7d97a3", "#c6d3d6"], ["#0c1416", "#142023", "#9fc4cf", "#1c2c30"]],
+    petals:   [["#efe6e6", "#f3efe9", "#d98c9c", "#e2b27a"], ["#18131a", "#1f1a1e", "#d99aa8", "#e8c79a"]],
     bokeh:    [["#e9e0d6", "#f1ece6", "#e0a96a", "#c98d8d"], ["#16110f", "#211915", "#f0b06a", "#e08a7a"]],
     embers:   [["#efe2d6", "#f3ebe3", "#e0823a", "#e9c08a"], ["#170e0a", "#22150f", "#ff9a4a", "#ffcf8a"]],
     waves:    [["#dbe3ec", "#ecefef", "#8aa2b8", "#fdfbf2"], ["#0a1220", "#121c2a", "#7f9cc0", "#f4efd6"]],
@@ -213,20 +213,22 @@
       for (const cl of s.c) { cl.x += cl.v * dt * sp; if (cl.x > 1.4) cl.x = -0.4; glow(cl.x * W, cl.y * H, cl.r * W, c[3], 0.35); }
     },
   };
-  S.ripples = {
-    init: () => ({ r: [], next: 0 }),
+  S.petals = {
+    init: () => ({ p: Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random(), s: R(8, 15), v: R(10, 22),
+                                                       a: R(0, TAU), va: R(-0.6, 0.6), w: R(0, TAU), k: Math.random() < 0.7 })) }),
     draw(s, dt, t, sp, c) {
       sky(c[0], c[1]);
-      if (t > s.next) { s.r.push({ x: R(0.1, 0.9), y: R(0.45, 0.9), age: 0 }); s.next = t + R(1.5, 3.5) / sp; }
-      for (const r of s.r) {
-        r.age += dt * sp;
-        for (let k = 0; k < 3; k++) {
-          const rad = (r.age * 18 - k * 14); if (rad <= 0) continue;
-          ctx.strokeStyle = rgba(c[2], Math.max(0, 0.32 - r.age * 0.04)); ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.ellipse(r.x * W, r.y * H, rad * 2.2, rad * 0.7, 0, 0, TAU); ctx.stroke();
-        }
+      glow(W * 0.82, H * 0.18, H * 0.45, c[3], 0.35);          // soft window light, upper right
+      for (const p of s.p) {
+        p.y += p.v * dt * sp / H; p.x += (Math.sin(t * 0.35 + p.w) * 6 + 4) * dt * sp / W; p.a += p.va * dt * sp;
+        if (p.y > 1.05) { p.y = -0.05; p.x = Math.random() * 1.1 - 0.1; }
+        if (p.x > 1.05) p.x = -0.05;
+        ctx.save(); ctx.translate(p.x * W, p.y * H); ctx.rotate(p.a);
+        ctx.scale(1, 0.55 + 0.35 * Math.sin(t * 0.8 + p.w));        // slow flutter
+        ctx.fillStyle = rgba(p.k ? c[2] : c[3], 0.42);
+        ctx.beginPath(); ctx.ellipse(0, 0, p.s, p.s * 0.6, 0, 0, TAU); ctx.fill();
+        ctx.restore();
       }
-      s.r = s.r.filter(r => r.age < 8);
     },
   };
   S.bokeh = {
@@ -276,7 +278,7 @@
   // ---------- track -> scene ----------
   const MAP = {
     s08: "city", s09: "snow", s10: "rain", s11: "fields", s12: "train", s13: "library", s14: "temple",
-    g15: "aurora", g16: "clouds", g17: "ripples", g18: "bokeh",
+    g15: "aurora", g16: "clouds", g17: "petals", g18: "bokeh",
     o01: "sunrise", o02: "rain", o03: "library", o04: "temple", o05: "embers", o06: "waves", o07: "city",
   };
   const SPEED = { low: 0.6, mid: 1, high: 1.45 };
