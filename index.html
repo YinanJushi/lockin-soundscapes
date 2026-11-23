@@ -43,8 +43,12 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: env(safe-area-inset-top, 0px) calc(160px + env(safe-area-inset-bottom, 0px));
 }
-.wrap { max-width: 800px; margin: 0 auto; display: grid; gap: 44px; padding-block: 40px 0; }
+#bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+.wrap { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; display: grid; gap: 44px; padding-block: clamp(72px, 24vh, 240px) 0; }
+.glass { background: color-mix(in srgb, var(--surface) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 header { display: grid; gap: 12px; }
+.lede, .hint, h2 small, footer { text-shadow: 0 0 12px var(--bg); }
+h1 { text-shadow: 0 0 24px var(--bg); }
 h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2.2rem, 6.5vw, 3.2rem); line-height: 1.08; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
 .lede { color: var(--muted); margin: 0; max-width: 38em; }
 h2 { font-family: var(--display); font-weight: 500; font-size: 1.5rem; margin: 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -58,7 +62,7 @@ button { font: inherit; }
 .chooser-q { font-family: var(--display); font-size: 1.2rem; margin: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
-  cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px;
+  cursor: pointer; border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 85%, transparent); color: var(--fg); border-radius: 999px;
   padding: 7px 14px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px;
 }
 .chip small { color: var(--muted); font-size: 12.5px; }
@@ -70,7 +74,7 @@ button { font: inherit; }
 .hint { color: var(--muted); font-size: 13.5px; margin: 0; min-height: 1.6em; }
 
 /* genre grid */
-.grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: color-mix(in srgb, var(--surface) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .grid .hd { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
 .grid .fam { padding: 14px 12px; border-top: 1px solid var(--line); display: grid; align-content: center; }
 .grid .fam:nth-child(5) { border-top: 0; }
@@ -92,12 +96,14 @@ button { font: inherit; }
 
 /* scenes & acoustic */
 .list { display: grid; gap: 10px; }
-.scene { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 2.4em minmax(0, 1fr); gap: 2px 12px; }
+.scene { background: color-mix(in srgb, var(--surface) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 2.4em minmax(0, 1fr); gap: 2px 12px; }
 .scene.playing, .cell.playing { box-shadow: inset 0 0 0 2px var(--accent); }
 .num { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 3px; font-variant-numeric: tabular-nums; }
 .scene h3, .row h3 { font-family: var(--display); font-weight: 500; font-size: 1.15rem; margin: 0; }
 .meta { color: var(--muted); font-size: 13.5px; margin: 0; min-width: 0; }
 .btns { grid-column: 2; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+#acoustic { border: 1px solid var(--line); border-radius: 12px; padding: 4px 14px; background: color-mix(in srgb, var(--surface) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.row:last-child { border-bottom: 0; }
 .row { border-bottom: 1px solid var(--line); padding: 10px 2px; display: grid; grid-template-columns: 2.4em minmax(0, 1fr) auto; gap: 12px; align-items: center; }
 .row.playing h3 { color: var(--accent); }
 footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; }
@@ -105,7 +111,7 @@ footer p { margin: 0; }
 
 /* player bar */
 .bar {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line);
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: color-mix(in srgb, var(--surface) 86%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--line);
   padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
 }
 .bar-in { max-width: 800px; margin: 0 auto; display: grid; gap: 8px; }
@@ -128,8 +134,9 @@ select { font: inherit; color: var(--fg); background: var(--bg); border: 1px sol
   .grid { grid-template-columns: minmax(0, 1fr); border: 0; background: transparent; gap: 0; overflow: visible; }
   .grid .fam { margin-top: 12px; }
   .grid .hd { display: none; }
-  .grid .fam { border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--surface); padding: 12px 14px 4px; }
-  .cell { border: 1px solid var(--line); border-top: 0; background: var(--surface); grid-template-columns: auto minmax(0, 1fr); align-items: center; padding: 8px 14px; }
+  .grid { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .grid .fam { border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; background: color-mix(in srgb, var(--surface) 82%, transparent); padding: 12px 14px 4px; }
+  .cell { border: 1px solid var(--line); border-top: 0; background: color-mix(in srgb, var(--surface) 82%, transparent); grid-template-columns: auto minmax(0, 1fr); align-items: center; padding: 8px 14px; }
   .cell.last { border-radius: 0 0 10px 10px; padding-bottom: 12px; }
   .grid .fam:nth-child(5) { border-top: 1px solid var(--line); margin-top: 0; }
   .scene { grid-template-columns: minmax(0, 1fr); }
@@ -141,6 +148,7 @@ select { font: inherit; color: var(--fg); background: var(--bg); border: 1px sol
 </style>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 <div class="wrap">
   <header>
     <h1>Lock-in Soundscapes</h1>
@@ -210,12 +218,13 @@ select { font: inherit; color: var(--fg); background: var(--bg); border: 1px sol
           <option value="60">60 min</option><option value="90">90 min</option>
         </select>
       </label>
+      <label><input type="checkbox" id="motion"> Moving background</label>
       <span class="timer" id="timer" hidden></span>
     </div>
   </div>
 </div>
 <audio id="audio" preload="none"></audio>
-
+<script src="bg.js"></script>
 <script>
 const el = id => document.getElementById(id);
 const audio = el("audio");
@@ -309,6 +318,7 @@ function load(i, play) {
   try { localStorage.setItem("lockin-last", t.key); } catch (e) {}
   try { if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: "Lock-in Soundscapes" }); } catch (e) {}
   if (play) audio.play().catch(() => {});
+  window.LockinBG && window.LockinBG.setScene(t);
   mark();
 }
 
@@ -336,6 +346,10 @@ el("toggle").addEventListener("click", () => { if (idx < 0) return step(1); audi
 el("prev").addEventListener("click", () => step(-1));
 el("next").addEventListener("click", () => step(1));
 el("loop").addEventListener("change", e => { audio.loop = e.target.checked; });
+if (window.LockinBG) {
+  el("motion").checked = window.LockinBG.motion;
+  el("motion").addEventListener("change", e => window.LockinBG.setMotion(e.target.checked));
+} else { el("motion").closest("label").hidden = true; }
 audio.addEventListener("play", mark);
 audio.addEventListener("pause", mark);
 audio.addEventListener("ended", () => { if (!audio.loop) step(1); });
