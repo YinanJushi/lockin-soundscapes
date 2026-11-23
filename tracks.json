@@ -1,0 +1,332 @@
+[
+ {
+  "key": "g15a",
+  "file": "audio/g15a.mp3",
+  "collection": "genres",
+  "group": "Electronic",
+  "level": "low",
+  "bpm": 64,
+  "title": "Electronic · Low",
+  "meta": "Floating synth pads and slow grain"
+ },
+ {
+  "key": "g15b",
+  "file": "audio/g15b.mp3",
+  "collection": "genres",
+  "group": "Electronic",
+  "level": "mid",
+  "bpm": 92,
+  "title": "Electronic · Mid",
+  "meta": "Synth arpeggios over a soft pumping pad"
+ },
+ {
+  "key": "g15c",
+  "file": "audio/g15c.mp3",
+  "collection": "genres",
+  "group": "Electronic",
+  "level": "high",
+  "bpm": 122,
+  "title": "Electronic · High",
+  "meta": "Rolling bass and opening filter sweeps"
+ },
+ {
+  "key": "g16a",
+  "file": "audio/g16a.mp3",
+  "collection": "genres",
+  "group": "Orchestral",
+  "level": "low",
+  "bpm": 60,
+  "title": "Orchestral · Low",
+  "meta": "Long string chords and a soft horn line"
+ },
+ {
+  "key": "g16b",
+  "file": "audio/g16b.mp3",
+  "collection": "genres",
+  "group": "Orchestral",
+  "level": "mid",
+  "bpm": 84,
+  "title": "Orchestral · Mid",
+  "meta": "Cinematic string ostinato, low drums"
+ },
+ {
+  "key": "g16c",
+  "file": "audio/g16c.mp3",
+  "collection": "genres",
+  "group": "Orchestral",
+  "level": "high",
+  "bpm": 116,
+  "title": "Orchestral · High",
+  "meta": "Stacked ostinatos that slowly thicken"
+ },
+ {
+  "key": "g17a",
+  "file": "audio/g17a.mp3",
+  "collection": "genres",
+  "group": "Piano",
+  "level": "low",
+  "bpm": 58,
+  "title": "Piano · Low",
+  "meta": "Slow piano with plenty of space"
+ },
+ {
+  "key": "g17b",
+  "file": "audio/g17b.mp3",
+  "collection": "genres",
+  "group": "Piano",
+  "level": "mid",
+  "bpm": 80,
+  "title": "Piano · Mid",
+  "meta": "Melody over broken chords"
+ },
+ {
+  "key": "g17c",
+  "file": "audio/g17c.mp3",
+  "collection": "genres",
+  "group": "Piano",
+  "level": "high",
+  "bpm": 112,
+  "title": "Piano · High",
+  "meta": "Minimalist repeating figures that drift"
+ },
+ {
+  "key": "g18a",
+  "file": "audio/g18a.mp3",
+  "collection": "genres",
+  "group": "Groove",
+  "level": "low",
+  "bpm": 66,
+  "title": "Groove · Low",
+  "meta": "Jazz chords on electric piano, no drums"
+ },
+ {
+  "key": "g18b",
+  "file": "audio/g18b.mp3",
+  "collection": "genres",
+  "group": "Groove",
+  "level": "mid",
+  "bpm": 90,
+  "title": "Groove · Mid",
+  "meta": "Swung hip-hop groove, soft snare"
+ },
+ {
+  "key": "g18c",
+  "file": "audio/g18c.mp3",
+  "collection": "genres",
+  "group": "Groove",
+  "level": "high",
+  "bpm": 120,
+  "title": "Groove · High",
+  "meta": "Light broken-beat groove, busy bass"
+ },
+ {
+  "key": "s08a",
+  "file": "audio/s08a.mp3",
+  "collection": "scenes",
+  "group": "Late-Night City",
+  "level": "low",
+  "bpm": 60,
+  "title": "Late-Night City · Read",
+  "meta": "Distant traffic hum · jazz electric piano"
+ },
+ {
+  "key": "s08b",
+  "file": "audio/s08b.mp3",
+  "collection": "scenes",
+  "group": "Late-Night City",
+  "level": "mid",
+  "bpm": 80,
+  "title": "Late-Night City · Study",
+  "meta": "Distant traffic hum · jazz electric piano"
+ },
+ {
+  "key": "s09a",
+  "file": "audio/s09a.mp3",
+  "collection": "scenes",
+  "group": "Snowfall",
+  "level": "low",
+  "bpm": 56,
+  "title": "Snowfall · Read",
+  "meta": "The hush of a snowy night · celesta, piano, strings"
+ },
+ {
+  "key": "s09b",
+  "file": "audio/s09b.mp3",
+  "collection": "scenes",
+  "group": "Snowfall",
+  "level": "mid",
+  "bpm": 72,
+  "title": "Snowfall · Study",
+  "meta": "The hush of a snowy night · celesta, piano, strings"
+ },
+ {
+  "key": "s10a",
+  "file": "audio/s10a.mp3",
+  "collection": "scenes",
+  "group": "Rainy Night Café",
+  "level": "low",
+  "bpm": 62,
+  "title": "Rainy Night Café · Read",
+  "meta": "Rain behind the window · nylon-string guitar"
+ },
+ {
+  "key": "s10b",
+  "file": "audio/s10b.mp3",
+  "collection": "scenes",
+  "group": "Rainy Night Café",
+  "level": "mid",
+  "bpm": 82,
+  "title": "Rainy Night Café · Study",
+  "meta": "Rain behind the window · nylon-string guitar"
+ },
+ {
+  "key": "s11a",
+  "file": "audio/s11a.mp3",
+  "collection": "scenes",
+  "group": "Summer Night Fields",
+  "level": "low",
+  "bpm": 60,
+  "title": "Summer Night Fields · Read",
+  "meta": "Evening wind and low frogs · accordion, plucked strings"
+ },
+ {
+  "key": "s11b",
+  "file": "audio/s11b.mp3",
+  "collection": "scenes",
+  "group": "Summer Night Fields",
+  "level": "mid",
+  "bpm": 78,
+  "title": "Summer Night Fields · Study",
+  "meta": "Evening wind and low frogs · accordion, plucked strings"
+ },
+ {
+  "key": "s12a",
+  "file": "audio/s12a.mp3",
+  "collection": "scenes",
+  "group": "Night Train",
+  "level": "low",
+  "bpm": 58,
+  "title": "Night Train · Read",
+  "meta": "The low rocking of the carriage · piano, cello"
+ },
+ {
+  "key": "s12b",
+  "file": "audio/s12b.mp3",
+  "collection": "scenes",
+  "group": "Night Train",
+  "level": "mid",
+  "bpm": 76,
+  "title": "Night Train · Study",
+  "meta": "The low rocking of the carriage · piano, cello"
+ },
+ {
+  "key": "s13a",
+  "file": "audio/s13a.mp3",
+  "collection": "scenes",
+  "group": "Library Afternoon",
+  "level": "low",
+  "bpm": 64,
+  "title": "Library Afternoon · Read",
+  "meta": "Air-conditioning hum · marimba, flute"
+ },
+ {
+  "key": "s13b",
+  "file": "audio/s13b.mp3",
+  "collection": "scenes",
+  "group": "Library Afternoon",
+  "level": "mid",
+  "bpm": 86,
+  "title": "Library Afternoon · Study",
+  "meta": "Air-conditioning hum · marimba, flute"
+ },
+ {
+  "key": "s14a",
+  "file": "audio/s14a.mp3",
+  "collection": "scenes",
+  "group": "Mountain Temple Dawn",
+  "level": "low",
+  "bpm": 56,
+  "title": "Mountain Temple Dawn · Read",
+  "meta": "Morning wind and a distant bell · qin-like plucked strings"
+ },
+ {
+  "key": "s14b",
+  "file": "audio/s14b.mp3",
+  "collection": "scenes",
+  "group": "Mountain Temple Dawn",
+  "level": "mid",
+  "bpm": 72,
+  "title": "Mountain Temple Dawn · Study",
+  "meta": "Morning wind and a distant bell · qin-like plucked strings"
+ },
+ {
+  "key": "o01",
+  "file": "audio/o01.mp3",
+  "collection": "acoustic",
+  "group": "Morning Guitar",
+  "level": "mid",
+  "bpm": 80,
+  "title": "Morning Guitar",
+  "meta": "Fingerpicked guitar · a stream"
+ },
+ {
+  "key": "o02",
+  "file": "audio/o02.mp3",
+  "collection": "acoustic",
+  "group": "Kalimba Rain",
+  "level": "low",
+  "bpm": 66,
+  "title": "Kalimba Rain",
+  "meta": "Kalimba · rain"
+ },
+ {
+  "key": "o03",
+  "file": "audio/o03.mp3",
+  "collection": "acoustic",
+  "group": "Marimba Afternoon",
+  "level": "mid",
+  "bpm": 88,
+  "title": "Marimba Afternoon",
+  "meta": "Marimba, upright bass · a light breeze"
+ },
+ {
+  "key": "o04",
+  "file": "audio/o04.mp3",
+  "collection": "acoustic",
+  "group": "Bamboo Valley",
+  "level": "low",
+  "bpm": 60,
+  "title": "Bamboo Valley",
+  "meta": "Zither-like plucks, bamboo flute · mountain wind"
+ },
+ {
+  "key": "o05",
+  "file": "audio/o05.mp3",
+  "collection": "acoustic",
+  "group": "Fireplace Piano",
+  "level": "low",
+  "bpm": 62,
+  "title": "Fireplace Piano",
+  "meta": "Piano, low strings · a fireplace"
+ },
+ {
+  "key": "o06",
+  "file": "audio/o06.mp3",
+  "collection": "acoustic",
+  "group": "Midnight Harp",
+  "level": "low",
+  "bpm": 56,
+  "title": "Midnight Harp",
+  "meta": "Harp arpeggios · ocean waves"
+ },
+ {
+  "key": "o07",
+  "file": "audio/o07.mp3",
+  "collection": "acoustic",
+  "group": "Lo-fi Lock-in",
+  "level": "mid",
+  "bpm": 72,
+  "title": "Lo-fi Lock-in",
+  "meta": "Electric piano, soft beat · low noise bed"
+ }
+]

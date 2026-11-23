@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lock-in Soundscapes</title>
+<meta name="description" content="Thirty-three 30-minute instrumental tracks for studying, sorted by how much push you need.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; an energy chooser on top, a family x energy grid, then the older collections;
+   a player bar pinned to the bottom edge like a desk lamp. */
+:root {
+  --bg: #e9ece6;
+  --surface: #f6f7f3;
+  --fg: #1d2521;
+  --muted: #5a6660;
+  --line: #cfd5cc;
+  --accent: #3b6a5a;
+  --accent-ink: #f4f7f2;
+  --low: #a9c4b8;
+  --mid: #6e9a88;
+  --high: #3b6a5a;
+  --glow: rgba(59, 106, 90, 0.12);
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111615; --surface: #192120; --fg: #e3e8e1; --muted: #92a09a; --line: #2a3431;
+    --accent: #8cc3ab; --accent-ink: #0f1614; --glow: rgba(140, 195, 171, 0.12);
+    --low: #3e5a4f; --mid: #5f8d7a; --high: #8cc3ab; color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: env(safe-area-inset-top, 0px) calc(160px + env(safe-area-inset-bottom, 0px));
+}
+.wrap { max-width: 800px; margin: 0 auto; display: grid; gap: 44px; padding-block: 40px 0; }
+header { display: grid; gap: 12px; }
+h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2.2rem, 6.5vw, 3.2rem); line-height: 1.08; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 38em; }
+h2 { font-family: var(--display); font-weight: 500; font-size: 1.5rem; margin: 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+h2 small { font-family: var(--body); font-size: 13px; color: var(--muted); font-weight: 400; }
+section { display: grid; gap: 14px; }
+button { font: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* energy chooser */
+.chooser { display: grid; gap: 10px; }
+.chooser-q { font-family: var(--display); font-size: 1.2rem; margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px;
+  padding: 7px 14px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px;
+}
+.chip small { color: var(--muted); font-size: 12.5px; }
+.chip[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
+.bars { display: inline-flex; gap: 2px; align-items: flex-end; height: 12px; }
+.bars i { width: 3px; border-radius: 1px; background: var(--line); display: block; }
+.bars i:nth-child(1) { height: 5px; } .bars i:nth-child(2) { height: 8px; } .bars i:nth-child(3) { height: 12px; }
+.bars.low i:nth-child(1), .bars.mid i:nth-child(-n+2), .bars.high i { background: var(--accent); }
+.hint { color: var(--muted); font-size: 13.5px; margin: 0; min-height: 1.6em; }
+
+/* genre grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.grid .hd { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+.grid .fam { padding: 14px 12px; border-top: 1px solid var(--line); display: grid; align-content: center; }
+.grid .fam:nth-child(5) { border-top: 0; }
+.grid .fam b { font-family: var(--display); font-weight: 500; font-size: 1.1rem; }
+.cell { border-top: 1px solid var(--line); border-left: 1px solid var(--line); padding: 10px; display: grid; gap: 6px; align-content: center; min-width: 0; }
+.cell .meta { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.dim { opacity: 0.35; }
+
+.play {
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px; justify-self: start;
+  border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 999px; padding: 5px 13px 5px 9px; font-size: 13.5px;
+}
+.play:hover { border-color: var(--accent); }
+.play .dot { width: 18px; height: 18px; border-radius: 50%; background: var(--glow); display: grid; place-items: center; flex: none; }
+.play .dot::before { content: ""; border-left: 6px solid var(--accent); border-top: 4px solid transparent; border-bottom: 4px solid transparent; margin-left: 2px; }
+.play.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.play.on .dot { background: var(--accent-ink); }
+.play .bpm { font-family: var(--mono); font-size: 12px; opacity: 0.75; font-variant-numeric: tabular-nums; }
+
+/* scenes & acoustic */
+.list { display: grid; gap: 10px; }
+.scene { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 2.4em minmax(0, 1fr); gap: 2px 12px; }
+.scene.playing, .cell.playing { box-shadow: inset 0 0 0 2px var(--accent); }
+.num { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.scene h3, .row h3 { font-family: var(--display); font-weight: 500; font-size: 1.15rem; margin: 0; }
+.meta { color: var(--muted); font-size: 13.5px; margin: 0; min-width: 0; }
+.btns { grid-column: 2; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.row { border-bottom: 1px solid var(--line); padding: 10px 2px; display: grid; grid-template-columns: 2.4em minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.row.playing h3 { color: var(--accent); }
+footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; }
+footer p { margin: 0; }
+
+/* player bar */
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line);
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.bar-in { max-width: 800px; margin: 0 auto; display: grid; gap: 8px; }
+.now { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.now-text { min-width: 0; flex: 1; }
+.now-title { font-family: var(--display); font-weight: 500; font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 8px; }
+.now-sub { font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ctrls { display: flex; align-items: center; gap: 6px; }
+.ctrl { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; display: grid; place-items: center; }
+.ctrl.main { width: 46px; height: 46px; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ctrl svg { width: 18px; height: 18px; fill: currentColor; }
+.seek { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+.opts { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); align-items: center; }
+.opts label { display: inline-flex; align-items: center; gap: 6px; }
+select { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
+.timer { font-family: var(--mono); color: var(--accent); }
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: minmax(0, 1fr); border: 0; background: transparent; gap: 0; overflow: visible; }
+  .grid .fam { margin-top: 12px; }
+  .grid .hd { display: none; }
+  .grid .fam { border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--surface); padding: 12px 14px 4px; }
+  .cell { border: 1px solid var(--line); border-top: 0; background: var(--surface); grid-template-columns: auto minmax(0, 1fr); align-items: center; padding: 8px 14px; }
+  .cell.last { border-radius: 0 0 10px 10px; padding-bottom: 12px; }
+  .grid .fam:nth-child(5) { border-top: 1px solid var(--line); margin-top: 0; }
+  .scene { grid-template-columns: minmax(0, 1fr); }
+  .scene .num, .row .num { display: none; }
+  .btns { grid-column: 1; }
+  .row { grid-template-columns: minmax(0, 1fr) auto; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Lock-in Soundscapes</h1>
+    <p class="lede">Thirty-three instrumental tracks for studying, 30 minutes each. No vocals, no sharp sounds, and nothing that suddenly gets louder. Pick how much push you need, then pick a sound.</p>
+  </header>
+
+  <div class="chooser">
+    <p class="chooser-q" id="q">How much push do you need right now?</p>
+    <div class="chips" role="group" aria-labelledby="q" id="chips">
+      <button class="chip" data-level="all" aria-pressed="true">All</button>
+      <button class="chip" data-level="low" aria-pressed="false"><span class="bars low"><i></i><i></i><i></i></span>Low <small>reading, hard problems</small></button>
+      <button class="chip" data-level="mid" aria-pressed="false"><span class="bars mid"><i></i><i></i><i></i></span>Mid <small>problem sets, homework</small></button>
+      <button class="chip" data-level="high" aria-pressed="false"><span class="bars high"><i></i><i></i><i></i></span>High <small>drowsy, repetitive work</small></button>
+    </div>
+    <p class="hint" id="hint">Tip: the harder the task, the lower the energy. Using the same kind of music every session helps you settle in faster.</p>
+  </div>
+
+  <section aria-labelledby="h-genres">
+    <h2 id="h-genres">Genres <small>Four instrument families × three energy levels</small></h2>
+    <div class="grid" id="genres">
+      <div class="hd">Family</div>
+      <div class="hd"><span class="bars low"><i></i><i></i><i></i></span>Low</div>
+      <div class="hd"><span class="bars mid"><i></i><i></i><i></i></span>Mid</div>
+      <div class="hd"><span class="bars high"><i></i><i></i><i></i></span>High</div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-scenes">
+    <h2 id="h-scenes">Scenes <small>Read = low · Study = mid</small></h2>
+    <div class="list" id="scenes"></div>
+  </section>
+
+  <section aria-labelledby="h-ac">
+    <h2 id="h-ac">Acoustic set <small>Warm plucked and struck instruments</small></h2>
+    <div id="acoustic"></div>
+  </section>
+
+  <footer>
+    <p>All music is synthesized in code, not recorded. MP3, 96 kbps.</p>
+    <p>Why these choices: no lyrics (the clearest finding in the research), steady loudness, repetition with slow variation, and energy matched to the task.</p>
+  </footer>
+</div>
+
+<div class="bar" role="region" aria-label="Player">
+  <div class="bar-in">
+    <div class="now">
+      <div class="now-text">
+        <div class="now-title"><span id="now-bars"></span><span id="now-title">Pick a track to start</span></div>
+        <div class="now-sub" id="now-sub">Choose an energy level, or press play</div>
+      </div>
+      <div class="ctrls">
+        <button class="ctrl" id="prev" aria-label="Previous track"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+        <button class="ctrl main" id="toggle" aria-label="Play"><svg viewBox="0 0 24 24" id="toggle-icon"><path d="M8 5v14l11-7z"/></svg></button>
+        <button class="ctrl" id="next" aria-label="Next track"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      </div>
+    </div>
+    <div class="seek">
+      <span id="cur">0:00</span>
+      <input type="range" id="pos" min="0" max="1800" value="0" step="1" aria-label="Playback position">
+      <span id="dur">30:00</span>
+    </div>
+    <div class="opts">
+      <label><input type="checkbox" id="loop"> Repeat track</label>
+      <label>Stop after
+        <select id="sleep">
+          <option value="0">Off</option><option value="25">25 min</option><option value="45">45 min</option>
+          <option value="60">60 min</option><option value="90">90 min</option>
+        </select>
+      </label>
+      <span class="timer" id="timer" hidden></span>
+    </div>
+  </div>
+</div>
+<audio id="audio" preload="none"></audio>
+
+<script>
+const el = id => document.getElementById(id);
+const audio = el("audio");
+let TRACKS = [], byKey = {}, idx = -1, level = "all";
+const LEVELS = ["low", "mid", "high"];
+const fmt = t => { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0"); };
+const barsHtml = lv => `<span class="bars ${lv}" aria-hidden="true"><i></i><i></i><i></i></span>`;
+
+function playBtn(t, label) {
+  const b = document.createElement("button");
+  b.className = "play"; b.dataset.key = t.key; b.dataset.level = t.level;
+  b.innerHTML = '<span class="dot" aria-hidden="true"></span><span></span><span class="bpm"></span>';
+  b.children[1].textContent = label;
+  b.children[2].textContent = t.bpm + " BPM";
+  b.setAttribute("aria-label", `Play ${t.title}, ${t.level} energy, ${t.bpm} BPM`);
+  b.addEventListener("click", () => pick(t.key));
+  return b;
+}
+
+function render() {
+  // genres grid: rows = families in file order, columns = low/mid/high
+  const g = TRACKS.filter(t => t.collection === "genres");
+  const fams = [...new Set(g.map(t => t.group))];
+  fams.forEach(fam => {
+    const f = document.createElement("div");
+    f.className = "fam"; f.innerHTML = "<b></b>"; f.firstChild.textContent = fam;
+    el("genres").append(f);
+    LEVELS.forEach((lv, i) => {
+      const t = g.find(x => x.group === fam && x.level === lv);
+      const c = document.createElement("div");
+      c.className = "cell" + (i === 2 ? " last" : ""); c.dataset.level = lv; c.dataset.key = t.key;
+      const m = document.createElement("div"); m.className = "meta"; m.textContent = t.meta;
+      c.append(playBtn(t, lv[0].toUpperCase() + lv.slice(1)), m);
+      el("genres").append(c);
+    });
+  });
+  // scenes
+  const s = TRACKS.filter(t => t.collection === "scenes");
+  [...new Set(s.map(t => t.group))].forEach((name, i) => {
+    const pair = s.filter(t => t.group === name);
+    const c = document.createElement("article");
+    c.className = "scene"; c.dataset.keys = pair.map(t => t.key).join(" ");
+    c.innerHTML = '<span class="num"></span><div><h3></h3><p class="meta"></p></div><div class="btns"></div>';
+    c.querySelector(".num").textContent = String(8 + i).padStart(2, "0");
+    c.querySelector("h3").textContent = name;
+    c.querySelector(".meta").textContent = pair[0].meta;
+    pair.forEach(t => c.querySelector(".btns").append(playBtn(t, t.title.split(" · ")[1])));
+    el("scenes").append(c);
+  });
+  // acoustic
+  TRACKS.filter(t => t.collection === "acoustic").forEach((t, i) => {
+    const r = document.createElement("div");
+    r.className = "row"; r.dataset.keys = t.key; r.dataset.level = t.level;
+    r.innerHTML = '<span class="num"></span><div style="min-width:0"><h3></h3><p class="meta"></p></div>';
+    r.querySelector(".num").textContent = String(i + 1).padStart(2, "0");
+    r.querySelector("h3").textContent = t.title;
+    r.querySelector(".meta").textContent = t.meta;
+    r.append(playBtn(t, "Play"));
+    el("acoustic").append(r);
+  });
+}
+
+function inLevel(t) { return level === "all" || t.level === level; }
+
+function applyLevel() {
+  document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.level === level)));
+  document.querySelectorAll(".play").forEach(b => b.classList.toggle("dim", level !== "all" && b.dataset.level !== level));
+  document.querySelectorAll(".cell, .row").forEach(c => c.classList.toggle("dim", level !== "all" && c.dataset.level !== level));
+  const n = TRACKS.filter(inLevel).length;
+  el("hint").textContent = level === "all"
+    ? "Tip: the harder the task, the lower the energy. Using the same kind of music every session helps you settle in faster."
+    : `${n} tracks at ${level} energy. Next and previous stay within this level.`;
+}
+
+function mark() {
+  const k = idx >= 0 ? TRACKS[idx].key : null;
+  document.querySelectorAll(".play").forEach(b => b.classList.toggle("on", b.dataset.key === k && !audio.paused));
+  document.querySelectorAll(".cell").forEach(c => c.classList.toggle("playing", c.dataset.key === k));
+  document.querySelectorAll(".scene, .row").forEach(c => c.classList.toggle("playing", !!k && c.dataset.keys.split(" ").includes(k)));
+  el("toggle").setAttribute("aria-label", audio.paused ? "Play" : "Pause");
+  el("toggle-icon").innerHTML = audio.paused ? '<path d="M8 5v14l11-7z"/>' : '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>';
+}
+
+function load(i, play) {
+  idx = i;
+  const t = TRACKS[idx];
+  audio.src = t.file;
+  el("now-title").textContent = t.title;
+  el("now-bars").innerHTML = barsHtml(t.level);
+  el("now-sub").textContent = `${t.level[0].toUpperCase() + t.level.slice(1)} energy · ${t.bpm} BPM · ${t.meta}`;
+  try { localStorage.setItem("lockin-last", t.key); } catch (e) {}
+  try { if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: "Lock-in Soundscapes" }); } catch (e) {}
+  if (play) audio.play().catch(() => {});
+  mark();
+}
+
+function step(dir) {
+  const pool = TRACKS.map((t, i) => i).filter(i => inLevel(TRACKS[i]));
+  if (!pool.length) return;
+  if (idx < 0) return load(pool[0], true);
+  let p = pool.indexOf(idx);
+  p = p < 0 ? (dir > 0 ? 0 : pool.length - 1) : (p + dir + pool.length) % pool.length;
+  load(pool[p], true);
+}
+
+function pick(key) {
+  const i = byKey[key];
+  if (i === idx) { audio.paused ? audio.play().catch(() => {}) : audio.pause(); return; }
+  load(i, true);
+}
+
+el("chips").addEventListener("click", e => {
+  const c = e.target.closest(".chip"); if (!c) return;
+  level = c.dataset.level; applyLevel();
+  try { localStorage.setItem("lockin-level", level); } catch (e) {}
+});
+el("toggle").addEventListener("click", () => { if (idx < 0) return step(1); audio.paused ? audio.play().catch(() => {}) : audio.pause(); });
+el("prev").addEventListener("click", () => step(-1));
+el("next").addEventListener("click", () => step(1));
+el("loop").addEventListener("change", e => { audio.loop = e.target.checked; });
+audio.addEventListener("play", mark);
+audio.addEventListener("pause", mark);
+audio.addEventListener("ended", () => { if (!audio.loop) step(1); });
+audio.addEventListener("loadedmetadata", () => { el("pos").max = Math.floor(audio.duration || 1800); el("dur").textContent = fmt(audio.duration); });
+let seeking = false;
+audio.addEventListener("timeupdate", () => { if (!seeking) el("pos").value = Math.floor(audio.currentTime); el("cur").textContent = fmt(audio.currentTime); });
+el("pos").addEventListener("input", e => { seeking = true; el("cur").textContent = fmt(+e.target.value); });
+el("pos").addEventListener("change", e => { seeking = false; if (idx >= 0) audio.currentTime = +e.target.value; });
+
+let sleepAt = 0, sleepTick = null;
+el("sleep").addEventListener("change", e => {
+  const m = +e.target.value;
+  clearInterval(sleepTick); audio.volume = 1;
+  if (!m) { sleepAt = 0; el("timer").hidden = true; return; }
+  sleepAt = Date.now() + m * 60000; el("timer").hidden = false;
+  const tick = () => {
+    const left = (sleepAt - Date.now()) / 1000;
+    el("timer").textContent = fmt(left) + " left";
+    if (left <= 20) audio.volume = Math.max(0, left / 20);
+    if (left <= 0) { audio.pause(); audio.volume = 1; clearInterval(sleepTick); el("sleep").value = "0"; el("timer").textContent = "Time's up. Take a break."; }
+  };
+  tick(); sleepTick = setInterval(tick, 1000);
+});
+document.addEventListener("keydown", e => {
+  if (e.code === "Space" && !/INPUT|SELECT|BUTTON|TEXTAREA/.test(e.target.tagName)) { e.preventDefault(); el("toggle").click(); }
+});
+try {
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.setActionHandler("nexttrack", () => step(1));
+    navigator.mediaSession.setActionHandler("previoustrack", () => step(-1));
+  }
+} catch (e) {}
+
+fetch("tracks.json").then(r => r.json()).then(data => {
+  TRACKS = data; byKey = Object.fromEntries(TRACKS.map((t, i) => [t.key, i]));
+  render();
+  try { const lv = localStorage.getItem("lockin-level"); if (["all", ...LEVELS].includes(lv)) level = lv; } catch (e) {}
+  applyLevel();
+  try { const k = localStorage.getItem("lockin-last"); if (k && byKey[k] !== undefined) load(byKey[k], false); } catch (e) {}
+}).catch(() => { el("hint").textContent = "Could not load the track list. Refresh the page to try again."; });
+</script>
+</body>
+</html>
