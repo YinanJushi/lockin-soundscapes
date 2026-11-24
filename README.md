@@ -1,8 +1,8 @@
 # Lock-in Soundscapes
 
-Thirty-three 30-minute instrumental tracks for studying, sorted by how much push you need.
+Thirty 30-minute instrumental tracks for studying, sorted by how much push you need.
 
-- **Genres** — four instrument families (Electronic, Orchestral, Piano, Groove) at three energy levels (Low, Mid, High).
+- **Genres** — three instrument families (Electronic, Orchestral, Groove) at three energy levels (Low, Mid, High).
 - **Scenes** — seven places (late-night city, snowfall, rainy café, summer fields, night train, library, mountain temple), each in a Read (low) and Study (mid) version.
 - **Acoustic set** — seven warm plucked and struck pieces.
 

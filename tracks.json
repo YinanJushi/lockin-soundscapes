@@ -60,36 +60,6 @@
   "meta": "Stacked ostinatos that slowly thicken"
  },
  {
-  "key": "g17a",
-  "file": "audio/g17a.mp3",
-  "collection": "genres",
-  "group": "Piano",
-  "level": "low",
-  "bpm": 58,
-  "title": "Piano · Low",
-  "meta": "Slow piano with plenty of space"
- },
- {
-  "key": "g17b",
-  "file": "audio/g17b.mp3",
-  "collection": "genres",
-  "group": "Piano",
-  "level": "mid",
-  "bpm": 80,
-  "title": "Piano · Mid",
-  "meta": "Melody over broken chords"
- },
- {
-  "key": "g17c",
-  "file": "audio/g17c.mp3",
-  "collection": "genres",
-  "group": "Piano",
-  "level": "high",
-  "bpm": 112,
-  "title": "Piano · High",
-  "meta": "Minimalist repeating figures that drift"
- },
- {
   "key": "g18a",
   "file": "audio/g18a.mp3",
   "collection": "genres",
